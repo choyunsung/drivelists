@@ -28,3 +28,8 @@ build
 node_modules
 prebuilds
 js
+.idea
+package-lock.json
+# Optional npm cache directory
+yarn-lock.json
+yarn-error.log
