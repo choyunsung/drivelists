@@ -1,63 +1,49 @@
 {
   "targets": [
     {
-      "target_name": "drivelist",
+      "target_name": "drivelists",
       "cflags!": [ "-fno-exceptions" ],
       "cflags_cc!": [ "-fno-exceptions" ],
-      "xcode_settings": { "GCC_ENABLE_CPP_EXCEPTIONS": "YES",
+      "xcode_settings": {
+        "GCC_ENABLE_CPP_EXCEPTIONS": "YES",
         "CLANG_CXX_LIBRARY": "libc++",
-        "MACOSX_DEPLOYMENT_TARGET": "10.7",
+        "MACOSX_DEPLOYMENT_TARGET": "10.7"
       },
       "msvs_settings": {
-        "VCCLCompilerTool": { "ExceptionHandling": 1 },
+        "VCCLCompilerTool": {
+          "ExceptionHandling": 1,
+          "AdditionalOptions": [ "/EHsc" ]
+        },
+        "VCLinkerTool": {
+          "SetChecksum": "true"
+        }
       },
-      'include_dirs': [
+      "include_dirs": [
         "<!@(node -p \"require('node-addon-api').include\")",
         "."
       ],
-      'dependencies': ["<!(node -p \"require('node-addon-api').gyp\")"],
-      "defines": [
-        "NAPI_VERSION=<(napi_build_version)"
-      ],
+      "dependencies": ["<!(node -p \"require('node-addon-api').gyp\")"],
+      "defines": [ "NAPI_VERSION=9" ],
       "sources": [
-        "src/drivelist.cpp",
-        "src/device-descriptor.cpp",
+        "src/drivelists.cpp",
+        "src/device-descriptor.cpp"
       ],
-      "msvs_settings": {
-        "VCLinkerTool": {
-          "SetChecksum": "true"
-        },
-        "VCCLCompilerTool": {
-          "ExceptionHandling": 1,
-          "AdditionalOptions": [
-            "/EHsc"
-          ]
-        }
-      },
       "conditions": [
         [ 'OS=="mac"', {
           "xcode_settings": {
-            "OTHER_CPLUSPLUSFLAGS": [
-              "-stdlib=libc++"
-            ],
-            "OTHER_LDFLAGS": [
-              "-stdlib=libc++"
-            ]
+            "OTHER_CPLUSPLUSFLAGS": [ "-stdlib=libc++" ],
+            "OTHER_LDFLAGS": [ "-stdlib=libc++" ]
           },
           "sources": [
             "src/darwin/list.mm",
             "src/darwin/REDiskList.m"
           ],
           "link_settings": {
-            "libraries": [
-              "-framework Carbon,DiskArbitration"
-            ]
+            "libraries": [ "-framework Carbon,DiskArbitration" ]
           }
         }],
         [ 'OS=="win"', {
-          "sources": [
-            "src/windows/list.cpp"
-          ],
+          "sources": [ "src/windows/list.cpp" ],
           "libraries": [
             "-lKernel32.lib",
             "-lShell32.lib",
@@ -65,9 +51,7 @@
           ]
         }],
         [ 'OS=="linux"', {
-          "sources": [
-            "src/linux/list.cpp"
-          ]
+          "sources": [ "src/linux/list.cpp" ]
         }]
       ]
     }

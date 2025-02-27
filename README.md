@@ -171,12 +171,7 @@ Documentation
 **Summary**: List available drives  
 **Example**  
 ```js
-const drivelist = require('drivelist');
-
-const drives = await drivelist.list();
-drives.forEach((drive) => {
-  console.log(drive);
-});
+const drivelist = require('drivelist');const drives = await drivelist.list();drives.forEach((drive) => {  console.log(drive);});
 ```
 
 Tests
