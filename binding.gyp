@@ -20,13 +20,15 @@
       },
       "include_dirs": [
         "<!@(node -p \"require('node-addon-api').include\")",
+        "<!@(pkg-config --cflags libusb-1.0 | sed s/-I//g)",
         "."
       ],
       "dependencies": ["<!(node -p \"require('node-addon-api').gyp\")"],
       "defines": [ "NAPI_VERSION=9" ],
       "sources": [
         "src/drivelists.cpp",
-        "src/device-descriptor.cpp"
+        "src/device-descriptor.cpp",
+        "src/usb_device.cpp",
       ],
       "conditions": [
         [ 'OS=="mac"', {

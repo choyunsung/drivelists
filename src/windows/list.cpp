@@ -32,10 +32,20 @@
 #include <string>
 #include <vector>
 #include <set>
-#include "../drivelist.hpp"
+#include <thread>
+#include <mutex>
+#include <functional>
+#include "../drivelists.hpp"
 #include "list.hpp"
 
 namespace Drivelist {
+
+// Handle for the notification window
+static HWND notificationWindow = NULL;
+static std::thread windowThread;
+static std::mutex notificationMutex;
+static bool isListeningForChanges = false;
+
 
 std::string WCharToUtf8String(const wchar_t* wstr) {
   if (!wstr) {
