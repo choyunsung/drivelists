@@ -1,18 +1,4 @@
-/*
- * Copyright 2017 balena.io
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *    http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
+//src/drivelists.hpp
 
 #ifndef SRC_DRIVELIST_HPP_
 #define SRC_DRIVELIST_HPP_
@@ -21,7 +7,7 @@
 #include <string>
 #include <vector>
 
-namespace Drivelist {
+namespace Drivelists {
 
 struct MountPoint {
   std::string path;
@@ -57,9 +43,15 @@ struct DeviceDescriptor {
 
 std::vector<DeviceDescriptor> ListStorageDevices();
 Napi::Object PackDriveDescriptor(Napi::Env env, const DeviceDescriptor *instance);
+void RegisterDeviceChangeCallback(std::function<void(const std::vector<DeviceDescriptor>&)> callback);
+void StartDeviceMonitoring();
+void StopDeviceMonitoring();
 
 }  // namespace Drivelist
 
 Napi::Value List(const Napi::CallbackInfo& info);
+Napi::Value StartMonitoring(const Napi::CallbackInfo& info);
+Napi::Value StopMonitoring(const Napi::CallbackInfo& info);
+Napi::Object Init(Napi::Env env, Napi::Object exports);
 
 #endif  // SRC_DRIVELIST_HPP_

@@ -1,6 +1,6 @@
 {
   "name": "drivelists",
-  "version": "12.0.3",
+  "version": "12.0.4",
   "description": "List all connected drives in your computer, forked from balena-io-modules/drivelist",
   "keywords": [
     "disk",
@@ -8,7 +8,11 @@
     "platform",
     "physical",
     "drive",
-    "list"
+    "list",
+    "usb",
+    "device",
+    "detect",
+    "storage"
   ],
   "homepage": "https://github.com/choyunsung/drivelists",
   "repository": {
@@ -35,10 +39,9 @@
     "lint-ts": "balena-lint --typescript lib tests",
     "prettier": "balena-lint --typescript --fix lib tests",
     "readme": "jsdoc2md --template doc/README.hbs js/index.js > README.md",
-    "build": "node-gyp rebuild && tsc",
     "build-ts": "tsc",
     "prepublishOnly": "npm run build-ts && npm run readme",
-    "install": "node-gyp rebuild",
+    "build": "node-gyp rebuild && tsc",
     "rebuild": "node-gyp rebuild",
     "prebuild": "prebuild --runtime napi --target 8 --strip",
     "prebuild-all": "prebuild --runtime napi --target 8 --strip --all",
